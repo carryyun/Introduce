@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.yun.board.dao.UserDao">
+    <resultMap type="UserVO" id="UserVOMap">
+        <id     column="uno"            property="uno"/>
+        <result column="name"          property="name"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="UserVOMap" parameterType="hashmap">
+        select
+            *
+        from
+            user
+        order by
+            uno
+    </select>
+    <select id="count" resultType="integer">
+        select
+            count(*)
+        from
+            user;
+    </select>
+    
+    <select id="findByNo" resultType="UserVO">
+        select
+            *
+        from
+            user
+        where uno=#{uno};
+        
+    </select>
+    
+    
+    <insert id="insert" parameterType="UserVO" keyColumn="uno" keyProperty="uno" useGeneratedKeys="true">
+        insert into board(name) values(#{title},#{content},#{uno});
+    </insert>
+    
+    <update id="update" parameterType="UserVO" keyColumn="uno" keyProperty="uno" useGeneratedKeys="true">
+        update
+            board
+        set
+            title = #{title},
+            content = #{content}
+        where
+            bno=#{bno};
+    </update>
+</mapper>

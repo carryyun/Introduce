@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.yun.board.dao.BoardDao">
+    <resultMap type="UserVO" id="UserVOMap">
+        <result column="uno"       property="uno"/>
+        <result column="id"       property="id"/>
+        <result column="pw"       property="pw"/>
+        <result column="name"       property="name"/>
+    </resultMap>
+    <resultMap type="BoardVO" id="BoardVOMap">
+        <id     column="bno"            property="bno"/>
+        <result column="title"          property="title"/>
+        <result column="content"        property="content"/>
+        <result column="regDate"        property="regDate"/>
+        <result column="viewCnt"        property="viewCnt"/>
+        <collection property="userVO" resultMap="UserVOMap"/>
+    </resultMap>
+    
+    
+    
+    <select id="findAll" resultMap="BoardVOMap" parameterType="hashmap">
+        select
+            *
+        from
+            board join user
+        where
+            board.uno=user.uno
+        order by
+            bno DESC
+        limit
+            #{pageNo},#{pageSize};
+    </select>
+    <select id="count" resultType="integer">
+        select
+            count(*)
+        from
+            board;
+    </select>
+    
+    <select id="findByNo" resultType="BoardVO">
+        select
+            *
+        from
+            board
+        where bno=#{bno};
+        
+    </select>
+    
+    
+    <insert id="insert" parameterType="BoardVO" keyColumn="bno" keyProperty="bno" useGeneratedKeys="true">
+        insert into board(title,content,uno) values(#{title},#{content},#{uno});
+    </insert>
+    
+    <update id="update" parameterType="BoardVO" keyColumn="bno" keyProperty="bno" useGeneratedKeys="true">
+        update
+            board
+        set
+            title = #{title},
+            content = #{content}
+        where
+            bno=#{bno};
+    </update>
+    
+    <update id="updateCnt">
+        update
+            board
+        set
+            viewCnt = viewCnt+1
+        where
+            bno=#{bno};
+    </update>
+    
+    
+</mapper>

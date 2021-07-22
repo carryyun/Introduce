@@ -64,6 +64,12 @@
 			                                        자바기반 프론트 엔드 전문 개발 과정 (6개월) <br/>
 	                    </h4>
 	                    <hr width="40%" style="margin-left: 13% ;">
+	                    <h5>
+	                      <br/>안녕하세요. 저의 프로필 사이트를 방문해주셔서 감사합니다.
+                          <br/>시작이 오래걸렸지만 웹프로그래머로서 시작하려고 합니다.
+                          <br/>아직은 부족하지만,
+                          <br/>노력을 통해 머무르지 않는 개발자가 되고 싶습니다. 
+	                    </h5>
                    </article>
 	               
 	           </div>
@@ -165,8 +171,8 @@
 	                   <img alt="1013.png" src="/upload/images/1013.png" width="400px" height="250px">
 	               </article>
 	           </div>
-	           
-	           
+           </div>
+	       <div class="container text-center">
 	           <div class="portfolioWrap">
                    <article class="leftArticle">
                        <p class="smallP_np text-left">가상화폐 거래량확인 사이트</p>
@@ -179,16 +185,22 @@
                         <br/>참여자 [ 본인 ]
                         <br/>
                        </p>
-                       <a onclick="window.open('https://github.com/carryyun/java110-team-project')">Github</a>
-                       <a onclick="window.open('http://3.13.241.61:8080/app/mainpage/mainpage')">사이트 바로가기</a>
+                       <a onclick="window.open('https://github.com/carryyun/test02')">Github</a>
+                       <a onclick="window.open('http://3.13.241.61:8080/app/guard/upbitTest10')">사이트 바로가기</a>
                    </article>
                    <article class="rightArticle">
-                       <img alt="1013.png" src="/upload/images/1013.png" width="400px" height="250px">
+                       <img alt="1013.png" src="/upload/images/1014.png" width="400px" height="250px">
                    </article>
                </div>
 	           
 	        </div>
 	    </section>
+	    
+	    <footer>
+	           <p class="titleP text-center">
+	               Thank you for looking at my profile site !
+	           </p>
+	    </footer>
 	</div>
 
 <script type="text/javascript">

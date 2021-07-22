@@ -94,6 +94,8 @@
             <mvc:exclude-mapping path="/masterpage/detail" />
             
             <mvc:exclude-mapping path="/**/*.do" />
+            
+            <mvc:exclude-mapping path="/guard/*" />
             <bean
                 class="com.yun.board.web.interceptor.AuthInterceptor" />
         </mvc:interceptor>

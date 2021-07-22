@@ -137,6 +137,13 @@
         font-weight: 500;
         color: white;
     }
+    #aboutme>div.container>div#blackDiv>#rightArticle h5{
+        padding: 30px 10px 30px 10px; 
+        line-height: 2;
+        font-size: 14px;
+        font-weight: 500;
+        color: white;
+    }
     
     #aboutme>div.container>div#whiteDiv>#upArticle{
        width: 100%;
@@ -217,6 +224,7 @@
         position: relative;
         width: 100%;
         height: 960px;
+        display: grid;
     }
     #portfolio>.container>h2{
        width: 200px;
@@ -277,4 +285,12 @@
         color:#fff;
         background-color:#4171b1;
         cursor: pointer;
+    }
+    
+    footer .titleP{
+        background: #222;
+        color: white;
+        
+        height: 100px;
+        line-height: 80px;
     }

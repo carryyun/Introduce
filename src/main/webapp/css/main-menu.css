@@ -1,0 +1,113 @@
+/* 메인배너 */
+
+#carousel-banner{
+  width: 100%;
+}
+.carousel-inner{
+  width: 100%;
+}
+.carousel-inner img{
+  height: 400px;
+}
+
+/*button*/
+.button_base {
+ position: relative;
+ float: right;
+ margin: 0;
+ padding: 0;
+ border: 1px solid black;
+ margin-top: -25px;
+ margin-left: -100px;
+ margin-bottom: 20px;
+}
+
+.button_base:hover {
+ cursor: pointer;
+}
+
+.b01_simple_rollover:hover {
+ color: #ffffff;
+ background-color: #000000;
+}
+
+/* ensure equal card height inside carousel */
+.carousel-inner>.row-equal.active, .carousel-inner>.row-equal.next,
+ .carousel-inner>.row-equal.prev {
+ display: flex;
+}
+
+/* prevent flicker during transition */
+.carousel-inner>.row-equal.active.left, .carousel-inner>.row-equal.active.right
+ {
+ opacity: 0.5;
+ display: flex;
+}
+
+/* control image height */
+.card-img-top-250 {
+ max-height: 250px;
+ overflow: hidden;
+}
+
+/*-------------------------- */
+/* 카르셀 화살표 관련*/
+
+.carousel-control-prev-icon, .carousel-control-next-icon {
+ height: 50px;
+ width: 50px;
+ outline: black;
+ background-color: #dddddd;
+ background-size: 100%, 100%;
+ border-radius: 50%;
+}
+
+::-moz-selection {
+ color: #fff;
+ background: #0085A1;
+ text-shadow: none;
+}
+
+::selection {
+ color: #fff;
+ background: #0085A1;
+ text-shadow: none;
+}
+
+blockquote {
+ font-style: italic;
+ color: #868e96;
+}
+
+* /
+.section-heading {
+ font-size: 36px;
+ font-weight: 700;
+ margin-top: 60px;
+}
+
+.caption {
+ font-size: 14px;
+ font-style: italic;
+ display: block;
+ margin: 0;
+ padding: 10px;
+ text-align: center;
+ border-bottom-right-radius: 5px;
+ border-bottom-left-radius: 5px;
+}
+
+img::-moz-selection {
+ color: #fff;
+ background: transparent;
+}
+
+img::selection {
+ color: #fff;
+ background: transparent;
+}
+
+img::-moz-selection {
+ color: #fff;
+ background: transparent;
+}

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- reportDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.ReportDao">
+
+	<resultMap type="report" id="reportMap">
+		<id column="rtno"         property="no" />
+		<result column="titl"     property="titl" />
+		<result column="conts"    property="conts" />
+		<result column="url"      property="url" />
+		<result column="type"     property="type" />
+		<result column="type_detail" property="type_detail"/>
+		<result column="rtdt"     property="rtdt" />
+	    <result column="meno"     property="meno" />	
+        <result column="meno2"    property="meno2" />
+  
+        <result column="metenick" property="menteeNick" />
+        <result column="mete2email" property="mentee2Email" />
+        <result column="mete2nick" property="mentee2Nick" />
+	</resultMap>
+
+	<sql id="select1">
+		SELECT
+		rtno,
+		titl,
+		conts,
+		url,
+		type,
+		rtdt,
+		meno,
+		meno2
+		FROM
+		p_rept
+	</sql>
+	
+	<select id="findAll" resultMap="reportMap" parameterType="map">
+       SELECT
+            rtno,
+            titl,
+            conts,
+            url,
+            type,
+            type_detail,
+            rtdt,
+            rept.meno,
+            rept.meno2,
+            mete.email,
+            mete.nick, 
+            mete2.email,
+            mete2.nick as mete2nick
+        FROM
+            p_rept as rept 
+            join p_mete as mete
+            join p_mete as mete2
+            
+            on rept.meno = mete.meno and
+               rept.meno2 = mete2.meno
+            
+        
+    </select>
+	
+	<select id="findByStat" resultMap="reportMap" parameterType="map">
+       SELECT
+            rtno,
+            titl,
+            conts,
+            url,
+            type,
+            type_detail,
+            rtdt,
+            rept.meno,
+            rept.meno2,
+            mete.email, 
+            mete2.email mete2email,
+            mete.nick as metenick, 
+            mete2.nick as mete2nick
+        FROM
+            p_rept as rept 
+            join p_mete as mete
+            join p_mete as mete2
+            
+            on rept.meno = mete.meno and
+               rept.meno2 = mete2.meno and
+               rept.stat = 'I'
+        limit #{rowNo},#{size}
+        
+    </select>
+	
+
+	<select id="findFinishAll" resultMap="reportMap" parameterType="map">
+        SELECT
+            rtno,
+            titl,
+            conts,
+            url,
+            type,
+            type_detail,
+            rtdt,
+            r.meno,
+            r.meno2,
+            mete.nick as metenick,
+            mete2.email as mete2email,
+            mete2.nick as mete2nick
+        FROM
+            p_rept r
+            join p_mete mete
+            join p_mete mete2
+        WHERE
+            r.meno = mete.meno AND
+            r.meno2 = mete2.meno AND
+            (r.stat='Y' OR r.stat='N')
+        GROUP BY r.meno2
+        
+        limit #{rowNo} , #{size}
+        
+	</select>
+
+	<select id="findByNo" resultMap="reportMap"
+		parameterType="int">
+        <include refid="select1"></include>
+        where
+        rtno=#{value}
+
+	</select>
+
+	<select id="findByMeno2Cnt" resultType="int" parameterType="int">
+        select
+            count(meno2)
+        from
+            p_rept
+        where
+            meno2=#{value} and stat ='Y'
+	</select>
+
+	<select id="findByMeno" resultMap="reportMap"
+        parameterType="int">
+        <include refid="select1"></include>
+        where
+        meno=#{value}
+    </select>
+    
+    <select id="findByMeno2" resultMap="reportMap" parameterType="map">
+        SELECT
+            mete.nick as metenick,
+            mete2.nick as mete2nick,
+            rept.rtno,
+            rept.type,
+            rept.type_detail,
+            rept.titl,
+            rept.conts,
+            rept.url,
+            rept.rtdt
+        FROM
+            p_rept rept
+            join p_mete mete2 
+            join p_mete mete
+        WHERE
+            rept.meno2 = mete2.meno and
+            rept.meno = mete.meno and
+            meno2=#{meno2} and rept.stat ='Y'
+    </select>
+
+	<insert id="insert" parameterType="report"
+		useGeneratedKeys="true" keyColumn="rtno" keyProperty="no">
+
+		INSERT INTO
+		p_rept(titl, conts, url, type, rtdt, meno, meno2,type_detail,stat)
+		VALUES(#{titl},#{conts},#{url},#{type},now(),#{meno},#{meno2},#{type_detail},'I')
+
+	</insert>
+
+
+    
+    
+	<update id="update" parameterType="report">
+		update p_rept
+		<set>
+			<if test="titl!=null">titl= #{titl},</if>
+			<if test="conts!=null">conts= #{conts},</if>
+			<if test="url!=null">url= #{url},</if>
+			<if test="type!=null">type= #{type},</if>
+			<if test="meno>0">meno= #{meno},</if>
+			<if test="meno2>0">meno2= #{meno2},</if>
+
+		</set>
+		where
+		rtno=#{no}
+	</update>
+	
+	<update id="updateReptstat" parameterType="report">
+        update p_rept
+        <set>
+            <if test="stat!=null">stat= #{stat}</if>
+        </set>
+        where
+        rtno=#{no}
+    </update>
+    
+    
+
+</mapper>

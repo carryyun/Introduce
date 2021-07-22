@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ClassBaketDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.yun.board.dao.ClassBaktDao">
+  
+  <resultMap type="ClassBakt" id="classBaktMap">
+  <id column="cbno" property="no"/>
+  <result column="meno" property="meno"/>
+  <result column="ctno" property="ctno"/>
+  
+  <result column="cno" property="classes.no"/>
+  
+  
+  <result column="titl" property="classes.titl"/>
+  <result column="time" property="classes.time"/>
+  <result column="pric" property="classes.pric"/>
+  <result column="cfile" property="classes.cfile"/>
+  
+  <result column="ttno" property="timetable.no"/>
+  <result column="date" property="timetable.date"/>
+  <result column="stime" property="timetable.stime"/>
+  <result column="sum" property="sum"/>
+  
+  
+  <result column="nick" property="mentorNick"/>
+  </resultMap>
+  
+  <sql id="select1">
+    select 
+        cbno, 
+        meno, 
+        ctno
+    from 
+        p_cls_bakt
+  
+  </sql>
+  
+  <select id="findAll" resultMap="classBaktMap">
+    <include refid="select1"/>
+    order by
+        cbno asc
+  </select>
+  
+  <insert id="insert" parameterType="ClassBakt" useGeneratedKeys="true" keyColumn="cbno" keyProperty="no">
+            insert into p_cls_bakt(meno, ctno)
+            values(#{meno}, #{ctno})
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+        delete from p_cls_bakt
+        where cbno=#{value}
+  </delete>
+  
+  <update id="update" parameterType="ClassBakt">
+    update p_cls_bakt
+    
+        <set>
+            <if test="meno!=null">meno=#{meno},</if>
+            <if test="ctno!=ctno">ctno=#{ctno}</if>
+        </set>
+        
+        where
+            meno=#{no}
+  </update>
+  
+  <select id="findAllByMeno" resultMap="classBaktMap" parameterType="int">
+       SELECT 
+           mete2.nick, 
+           ttab.ctno,
+           ttab.cno,
+           ttab.date, 
+           cls.titl, 
+           cls.pric, 
+           cls.time, 
+           cls.cfile, 
+           ttab.stime,
+           bakt.cbno
+            
+       FROM p_cls_bakt bakt 
+            join p_mete mete
+                on bakt.meno = mete.meno
+            join p_cls_ttab ttab
+                on bakt.ctno = ttab.ctno
+            join p_cls cls
+                on ttab.cno = cls.cno 
+            join p_meto meto
+                on meto.mono = cls.mono
+            join p_mete mete2
+                on mete2.meno = meto.mono
+        WHERE
+            bakt.meno=#{meno}
+    
+  </select>
+  
+  <select id="sumAllByMeno" resultMap="classBaktMap" parameterType="int">
+       SELECT 
+            sum(cls.pric * cls.time) as sum
+            
+       FROM p_cls_bakt bakt 
+            join p_mete mete
+                on bakt.meno = mete.meno
+            join p_cls_ttab ttab
+                on bakt.ctno = ttab.ctno
+            join p_cls cls
+                on ttab.cno = cls.cno 
+            join p_meto meto
+                on meto.mono = cls.mono
+            join p_mete mete2
+                on mete2.meno = meto.mono
+        WHERE
+            bakt.meno=#{meno}
+    
+  </select>
+</mapper>

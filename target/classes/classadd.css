@@ -1,0 +1,170 @@
+.dropdown-menu > li > a {
+         display: block;
+          padding: 3px 20px;
+          clear: both;
+          font-weight: normal;
+          line-height: 1.42857143;
+          color: #333;
+          white-space: nowrap;
+}
+
+div.note-editable{
+    height: 300px;
+}
+div#imgBind {
+	padding-top: 15px;
+	width: 459px;
+	height: 280px;
+	overflow: auto;
+	display: block;
+}
+.container{
+	background-color:white;
+}
+
+div.row.imgDiv {
+	margin-bottom: 15px;
+}
+#files {
+	color: white
+}
+.fileImg {
+	width: 120px;
+	height: 70px;
+}
+div.fc-scroller.fc-day-grid-container{
+	height: 400px;
+}
+div.ui-timepicker-container.ui-timepicker-no-scrollbar.ui-timepicker-standard{
+	z-index:100 !important; 
+}
+
+.fc-day-top.fc-sat{ color:#0000FF; }     /* 토요일 */
+.fc-day-top.fc-sun{ color:#FF0000; }     /* 일요일 */
+
+div h1{
+    font-weight:bolder;
+    color: black;
+    font-size: -webkit-xxx-large;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+div #ctitl{
+    font-size: 20px;
+    border-radius: 7px;
+    margin-redius: 15px;
+    margin-bottom: 20px;
+    height: 60px;
+    width: 100%;
+}
+.view,#posi{
+	border: 1px solid #FFB53C;
+    color: aliceblue;
+    background-color: #FFB53C;
+    margin-right:3px;
+    width: 100px;
+    border-radius:3px;
+    text-align: center;
+    font-weight: bold;
+}
+#sample6_postcode{
+	margin-right:3px;
+}
+#cpay,#cttime,#rnumber{
+	width:365px;
+}
+#cpay,#cttime,#rnumber,#ctime,#ctime2,#cdate,#cdate2{
+	text-align: center;
+}
+#sample6_address2,#sample6_address,#imgInput{
+	width:474px;
+}
+#ctime,#cdate{
+	width:174px;
+}
+#ctime2,#cdate2{
+	width:174px;
+}
+
+#example td{
+    border: 1px solid black;
+}
+
+#file-box #mphot{
+    color: white;
+    background-color: black; 
+    width: 100px;
+    border: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+input[type="button"]{
+    background-color: white;
+    border-radius: 3px;
+    border: 2px solid black;
+    color: black;
+} 
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+ input[type="button"]:hover { box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19); }
+
+
+#classinfo{
+    position: relative; height: 700px;
+}
+
+#filetable{
+    border: 1px;
+}
+
+#addItemBtn,#deleteItembtn{
+    background-color: blanchedalmond;
+    border-radius: 12px;
+    border: none;
+}
+
+#image_section{
+    height: 200px;
+    width: 200px;
+}
+
+input.upload{/*input type="file" tag 투명하게 처리*/
+  width: 75.9px;
+}
+
+#btnreplace {
+  position: absolute;  /*button tag 에 원하는 스타일 적용*/
+  background-color: #FFB53C;
+  border-radius: 12px;
+  border: none;
+}
+#allday-btn,#alldaytime,#onetime,#divcapa,#pst,#filebox,#oneday-btn,#type-chk-btn,#pay-div,#posi,#video-url,
+#sample6_postcode,#sample6_address,#sample6_address2,#imgInput,#tagselcetdiv{
+	margin-bottom: 3px;
+}
+#cpay,#ctime,#sample6_address,#sample6_address2,#imgInput,#cttime,#ctime2,#rnumber,#cdate,#cdate2,#sample6_postcode{
+	border-radius: 3px;
+}
+
+#clsinsert,#back-home-btn{
+	background-color: white;
+    border-radius: 3px;
+    border:3px solid #FFB53C;
+    color: black;
+    width: 100px;
+    height: 30px;
+    float: right;
+}
+
+
+
+
+
+
+

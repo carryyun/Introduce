@@ -1,0 +1,201 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#serch-men {
+    position: relative;
+    float: right;
+}
+
+#men-ck {
+    position: relative;
+    float: right;
+    font-size: 1000%;
+}
+
+#btn > #mas-btn {
+    position: relative;
+    float: right;
+}
+
+#page-list1{
+    position: relative;
+    
+}
+
+#page-list > li{
+    float: left;
+
+}
+
+h2{
+    text-align: center;
+    text-shadow:-1px -1px 1px #000;
+    color: #fff;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 10000;
+}
+
+.overlay:target {
+    visibility: visible;
+    opacity: 1;
+}
+.content{
+ padding: 15px;
+ border-radius:10px;
+ background-color:#fff9e8;
+ -webkit-box-shadow: inset 1px -2px 20px -6px rgba(0,0,0,0.64);
+    -moz-box-shadow: inset 1px -2px 20px -6px rgba(0,0,0,0.64);
+    box-shadow: inset 1px -2px 20px -6px rgba(0,0,0,0.64);
+/*     height: auto; */
+}
+.popup {
+    margin: 70px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 15px;
+    width: 55%;
+    min-width:760px;
+    height: auto;
+    position: relative;
+    transition: all 500ms ease-in-out;
+    -webkit-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    -moz-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+}
+.popupH {
+    
+    margin: 70px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius:25px;
+    width: 47%;
+    height: 400px;
+    position: relative;
+    transition: all 500ms ease-in-out;
+    -webkit-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    -moz-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+}
+
+.popupHH {
+    
+    margin: 70px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius:25px;
+    width: 47%;
+    height: auto;
+    position: relative;
+    transition: all 500ms ease-in-out;
+    -webkit-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    -moz-box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+    box-shadow: inset 1px -2px 35px -6px rgba(0,0,0,0.64);
+}
+
+.popup h2, .popupH h2, .popupHH h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+}
+
+.popup .close, .popupH .close, .popupHH .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+
+.popup .close:hover, .popupH .close:hover, .popupHH .close:hover {
+    color: #06D85F;
+}
+
+.popup .content, .popupHH .content {
+    max-height: auto; 
+    overflow: auto; 
+/*     height:auto; */
+    height: 550px;
+    background: white;
+}
+
+.popupH .content{
+    max-height: auto; 
+    overflow: auto;
+    height: 330px;
+    background: white;
+    
+}
+
+@media screen and (max-width: 300px) {
+    .box {
+        width: 50%;
+        min-width: 640px;
+        
+    }
+
+    .popup {
+        width: 50%;
+        min-width: 640px;
+    }
+    .popupH {
+        width: 50%;
+        min-width: 640px;
+    }
+    .popupHH {
+        width: 50%;
+        min-width: 640px;
+    }
+}
+
+.pop-in > li {
+    margin-top: 10px;
+}
+
+.pop-type {
+    font-size: 16px;
+}
+
+.pic1 {
+    width: 100%;
+    position: relative;
+    text-align: center;
+}
+
+
+#mas-p1 {
+ /* 멘토신청 리스트 팝업 승락버튼 */
+    position: relative;
+    float: right;
+    margin-top: 10%;
+}
+
+#mas-p2 {
+ /* 멘토신청 리스트 팝업 반려버튼 */
+    position: relative;
+    float: right;
+    margin-top: 10%;
+    right: 10px;
+}
+
+
+.ment-pic{
+ /* 멘토신청 리스트 팝업 멘토사진 */
+  width: 100%;
+  height: 50%;
+}

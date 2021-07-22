@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yun.board.dao.ClassPopulDao">
+
+    <resultMap type="classPopul" id="classPopulMap">
+        <id column="cpno"        property="no"/>
+        <result column="cno"   property="cno"/>
+        <result column="cno"   property="classes.no"/>
+        <result column="titl"   property="classes.titl"/>
+        <result column="pric"   property="classes.pric"/>
+        <result column="cfile"   property="classes.cfile"/>
+        <result column="star"   property="classes.star"/>
+        <result column="mtname"   property="middleTagName"/>
+        <result column="name"   property="name"/>
+        <result column="nick"   property="nick"/>
+    </resultMap>
+    
+    <select id="findAll" resultMap="classPopulMap">
+        select
+            popul.cpno,
+            popul.cno,
+            c.titl,
+            c.pric,
+            c.cfile,
+            c.star,
+            mtag.mtname,
+            mete.name,
+            mete.nick
+        from
+            p_cls_popul popul
+            join p_cls c
+            join p_mtag mtag
+            join p_mete mete
+        ON
+            popul.cno=c.cno AND
+            c.mtno = mtag.mtno AND
+            c.mono = mete.meno
+        order by
+            cpno DESC
+    </select>
+      
+    <insert id="insert" useGeneratedKeys="true" keyColumn="cpno" keyProperty="no" >
+    	insert into p_cls_popul(cno) values(#{no})
+    </insert>
+    
+    <delete id="delete">
+    	delete
+    	  from p_cls_popul
+    </delete>
+</mapper>

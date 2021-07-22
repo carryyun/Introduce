@@ -51,7 +51,7 @@
     
     
     <insert id="insert" parameterType="BoardVO" keyColumn="bno" keyProperty="bno" useGeneratedKeys="true">
-        insert into board(title,content,uno) values(#{title},#{content},#{uno});
+        insert into board(title,content,uno) values(#{title},#{content},#{userVO.uno});
     </insert>
     
     <update id="update" parameterType="BoardVO" keyColumn="bno" keyProperty="bno" useGeneratedKeys="true">

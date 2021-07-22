@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.MentorDao">
+
+    <resultMap type="mentor" id="mentorMap">
+        <id column="mono"       property="no"/>
+        <result column="name"   property="name"/>
+        <result column="email"   property="email"/>
+        <result column="nick"   property="nick"/>
+        <result column="phone"   property="phone"/>
+        <result column="pstno"   property="pstno"/>
+        <result column="bas_addr"   property="bas_addr"/>
+        <result column="det_addr"   property="det_addr"/>
+        <result column="phot"   property="phot"/>
+        <result column="sell"   property="sell"/>
+        <result column="bkname"   property="bkname"/>
+        <result column="bkno"   property="bkno"/>
+        <result column="rgdt"   property="rgdt"/>
+        <result column="stat"   property="stat"/>
+        <result column="note"   property="note"/>
+        <result column="mtstat"   property="mtstat"/>
+        <result column="rgdtmt" property="rgdtmt"/>
+        <result column="carr"   property="carr"/>
+        
+    </resultMap>
+    
+    <select id="findAll" resultMap="mentorMap" >
+        select 
+        	mono,
+        	carr
+          from p_meto mto left outer join p_mete mte 
+          	on mte.meno = mto.mono;
+    </select>
+
+
+
+
+    <select id="findByNo" resultMap="mentorMap" parameterType="int">
+        select 
+            *
+          from p_meto mto left outer join p_mete mte 
+            on mte.meno = mto.mono
+            where
+            mono=#{value};
+    </select>
+
+
+    <insert id="insert" parameterType="mentor">
+        insert into 
+        		p_meto
+        	 values
+        		(#{no},#{carr})
+    </insert>
+    
+    
+    <update id="update" parameterType="mentor">
+        
+        UPDATE
+           p_meto
+
+        SET 
+            carr = #{carr}
+
+        WHERE 
+            mono = #{no}
+
+    </update>
+    
+    
+    
+      
+    <select id="findByEmailPassword" 
+            resultMap="mentorMap" parameterType="map">
+        select 
+            mono,
+            name,
+            email,
+            nick,
+            phone,
+            pstno,
+            bas_addr,
+            det_addr,
+            phot,
+            sell,
+            bkname,
+            bkno,
+            rgdt,
+            stat,
+            note,
+            mtstat,
+            carr
+        from 
+            p_meto mto
+            left outer join p_mete mte on mto.mono = mte.meno
+        where
+            mte.email=#{email} and mte.pwd=password(#{pwd})
+    </select> 
+    
+    <select id="findMentorRequest" resultMap="mentorMap">
+        select
+            *
+        from 
+            p_meto meto
+            join p_mete mete
+        where
+            meto.mono = mete.meno and
+            mtstat='I'
+        order by 
+            meto.mono asc
+        limit #{pageNo},#{pageSize}
+    </select>
+    
+    
+</mapper>

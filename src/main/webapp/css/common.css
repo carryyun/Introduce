@@ -1,0 +1,87 @@
+@charset "UTF-8";
+/* hr 관련 */
+
+input:focus {
+  outline: none !important;
+}
+
+a.btn.btn-primary{
+  background-color: #FFB53C !important;
+  border-color: #FFB53C !important;
+}
+
+a.btn.btn-mok{
+	background-color: gray !important;
+  border-color: white !important;
+}
+*:not(i){
+ margin: 0;
+ padding: 0;
+ font-family: 'Noto Sans KR', sans-serif !important;
+}
+
+div.wrap{
+  min-width: 1110px;
+}
+body{
+ color : #6e6e6e;
+ font-size: 16px !important;
+}
+
+hr.SmallMarginHr{
+    margin: 4px !important;
+}
+hr.MiddleMarginHr{
+    margin: 10px !important;
+}
+hr.NoMarginHr{
+    margin-top: 0.75rem !important;
+    margin-bottom: 0.75rem !important;
+ 
+}
+hr.Fhr{
+    border: 0; 
+    height: 2px;
+    background: rgb(217, 217, 217); 
+    width: 100%; 
+    margin: 0 auto;
+}
+
+hr.FhrMargin{
+    border: 0; 
+    height: 2px;
+    background: rgb(217, 217, 217); 
+    width: 100%; 
+    margin: 20px 0;
+}
+
+hr.FhrBotMargin{
+    border: 0; 
+    height: 2px;
+    background: rgb(217, 217, 217); 
+    width: 100%; 
+    margin: 0 0 15px 0;
+}
+hr.Hhr{
+    border: 0; 
+    height: 2px;
+    background: rgb(217, 217, 217); 
+    width: 90%; 
+    margin: 0 auto;
+}
+
+
+ul{
+    list-style: none;
+}
+li a{
+    text-decoration: none !important;
+    color : #6e6e6e;
+}
+div a{
+    text-decoration: none !important;
+}
+
+a.selected{
+  font-weight: 800;
+}

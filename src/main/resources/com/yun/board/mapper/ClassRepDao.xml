@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ClassFile 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.yun.board.dao.ClassRepDao">
+    
+    <resultMap type="ClassRep" id="crepMap">
+        <id 	column="rno" 		property="no"/>
+        <result column="meno" 		property="meno"/>
+        <result column="cno" 		property="cno"/>
+        <result column="titl" 		property="titl"/>
+        <result column="conts" 		property="conts"/>
+        <result column="star" 		property="star"/>
+        <result column="phot" 		property="phot"/>
+        <result column="rgdt" 		property="rgdt"/>
+        <result column="nick"		property="mentee.nick"/>
+        <result column="mp"			property="mentee.phot"/>
+        <result column="phone"      property="mentee.phone"/>
+        <result column="cfile"      property="classes.cfile"/>
+    </resultMap>
+    <resultMap type="ClassRep" id="star">
+        <result column="star"       property="star"/>
+    </resultMap>
+    
+    <select id="findAllStar" resultMap="star" parameterType="map">
+        select 
+            star
+        from 
+            p_cls_rep
+        where
+            cno = #{no}
+        limit #{rowNo},#{size};
+    </select>
+    
+    <select id="findAll" resultMap="crepMap">
+        select 
+            meno,cno,titl,conts,star,phot,rgdt
+        from 
+            p_cls_rep
+        order by
+            rno asc;
+    </select>
+    
+    <select id="get" resultMap="crepMap" parameterType="int">
+    	select 
+		        ps.cno,
+		        psp.rno
+		    from
+		        p_mete as pe inner join p_cls_rep as psp
+		        	on pe.meno = psp.meno
+		        inner join p_cls as ps
+		        	on psp.cno = ps.cno
+		    where 
+		    	psp.rno = #{no}
+		    order by 
+		    	psp.rno asc
+    </select>
+    <select id="findAllByRgdt" resultMap="crepMap">
+        select 
+            psp.rno,
+            pe.nick,
+            pe.phot as mp,
+            psp.conts,
+            psp.phot,
+            psp.star,
+            psp.rgdt,
+            pe.meno,
+            ps.cno,
+            ps.titl,
+            ps.cfile
+        from
+            p_mete as pe inner join p_cls_rep as psp
+                on pe.meno = psp.meno
+            inner join p_cls as ps
+                on psp.cno = ps.cno
+        order by 
+            psp.rgdt desc
+        limit 0,4
+    </select>
+    <select id="findByCno" resultMap="crepMap" parameterType="int">
+        select *
+		from (
+		    select 
+		    	@rownum:=@rownum+1 as rnum,
+		    	psp.rno,
+		        pe.nick,
+		        pe.phot as mp,
+		        psp.conts,
+		        psp.phot,
+		        psp.star,
+		        psp.rgdt,
+		        pe.meno,
+		        ps.cno
+		    from
+		        p_mete as pe inner join p_cls_rep as psp
+		        	on pe.meno = psp.meno
+		        inner join p_cls as ps
+		        	on psp.cno = ps.cno
+		    	,(select @rownum:=0)r
+		    where 
+		    	ps.cno = #{no}
+		    order by 
+		    	psp.rno desc
+		    ) as a
+		where rnum limit #{rowNo},#{size}
+    </select>
+    
+    <select id="countByCno" resultType="int" parameterType="int">
+		    select 
+		    	count(*)
+		    from
+		        p_mete as pe inner join p_cls_rep as psp
+		        	on pe.meno = psp.meno
+		        inner join p_cls as ps
+		        	on psp.cno = ps.cno
+		    where ps.cno = #{no}
+		        order by psp.rno asc
+    </select>
+    
+    <!-- <select id="countstar" resultType="double" parameterType="int">
+		    SELECT 
+				sum(star)/count(star)
+			FROM 
+				p_cls_rep
+			where cno = #{no}
+    </select> -->
+    
+    <insert id="repinsert" parameterType="ClassRep"
+    	useGeneratedKeys="true" keyColumn="rno" keyProperty="no">
+    	insert 
+    		into p_cls_rep(meno,cno,titl,conts,star,phot,rgdt)
+    	values 
+    		(#{meno},#{cno},#{titl},#{conts},#{star},#{phot},now())
+    </insert>
+    
+	<delete id="repDelete" parameterType="int">
+        delete from p_cls_rep
+        where rno = #{no}
+  	</delete>
+  	
+  	<update id="repChange" parameterType="ClassRep">
+    	update p_cls_rep
+    		set
+    			conts = #{conts},
+    			rgdt = now()
+    	where
+    		rno = #{no}
+    </update>
+  </mapper>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yun.board.dao.ProductPopulDao">
+
+    <resultMap type="productPopul" id="productPopulMap">
+        <id column="ppno"        property="no"/>
+        <result column="ptno"   property="ptno"/>
+        <result column="ptno"   property="product.no"/>
+        <result column="titl"   property="product.titl"/>
+        <result column="pric"   property="product.pric"/>
+        <result column="phot"   property="product.phot"/>
+        <result column="star"   property="product.star"/>
+        <result column="mtname"   property="middleTagName"/>
+        <result column="stname"   property="smallTagName"/>
+        <result column="nick"   property="nick"/>
+    </resultMap>
+    
+   
+    
+    <select id="findAll" resultMap="productPopulMap">
+        select
+            popul.ppno,
+            popul.ptno,
+            p.titl,
+            p.pric,
+            p.phot,
+            p.star,
+            mtag.mtname,
+            stag.stname,
+            mete.nick
+        from
+            p_prdt_popul popul
+            JOIN p_mete mete
+            join p_prdt p
+            join p_cert cert
+            join p_stag stag
+            JOIN p_mtag mtag
+        ON
+            popul.ptno=p.ptno AND
+            p.meno=mete.meno AND
+            p.ctno=cert.ctno AND
+            p.stno=stag.stno AND
+            stag.mtno = mtag.mtno
+        order by
+            ppno DESC
+    </select>
+    
+    <insert id="insert" useGeneratedKeys="true" keyColumn="ppno" keyProperty="no" >
+    	insert into p_prdt_popul(ptno) values(#{no})
+    </insert>
+    
+    <delete id="delete">
+    	delete
+    	  from p_prdt_popul
+    </delete>
+   
+</mapper>

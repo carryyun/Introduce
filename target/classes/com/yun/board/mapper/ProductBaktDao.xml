@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.ProductBaktDao">
+
+    <resultMap type="ProductBakt" id="productBaktMap">
+        <id column="pbno"        property="no"/>
+        <result column="ptno"   property="ptno"/>
+        <result column="meno"   property="meno"/>
+        <result column="cnt"    property="cnt"/>
+        
+        <result column="titl" property="product.titl"/>
+        <result column="stock" property="product.stock"/>
+        <result column="pric" property="product.pric"/>
+        <result column="deli" property="product.deli"/>
+        <result column="phot" property="product.phot"/>
+        
+        <result column="nick" property="mentee.nick"/>
+        <result column="sum"  property="sum"/>
+        
+    </resultMap>
+    
+    <select id="findAll" resultMap="productBaktMap">
+        select
+            pbno,
+            ptno,
+            meno
+        from 
+            p_prdt_bakt
+        order by 
+            pbno asc
+    </select>
+    
+
+    <select id="findByNo" 
+            resultMap="productBaktMap" parameterType="int">
+        select
+            pbno,
+            ptno,
+            meno
+        from
+            p_prdt_bakt
+        where 
+            pbno=#{value}
+    </select>
+   
+    <select id="findAllByPtno" 
+            resultMap="productBaktMap" parameterType="Map">
+        select
+            pbno,
+            ptno,
+            meno
+        from
+            p_prdt_bakt
+        where 
+            ptno=#{productno}
+    </select>
+    
+    <select id="findAllByMeno" resultMap="productBaktMap" parameterType="int">
+        SELECT
+            pb.cnt,
+            pb.pbno,
+            pb.ptno,
+            pr.phot, 
+            pr.stock, 
+            pr.titl, 
+            pr.pric, 
+            pr.deli, 
+            mete.nick
+        FROM 
+            p_prdt_bakt pb 
+                join p_prdt pr
+            on pb.ptno = pr.ptno
+        JOIN p_mete mete
+            on pb.meno = mete.meno
+            
+        where 
+            pb.meno = #{value}
+    </select>
+    
+    <select id="sumByMeno" resultMap="productBaktMap" parameterType="int">
+        SELECT
+            sum((pr.pric*pb.cnt)+pr.deli) as sum
+        FROM 
+            p_prdt_bakt pb 
+                join p_prdt pr
+            on pb.ptno = pr.ptno
+        JOIN p_mete mete
+            on pb.meno = mete.meno
+        where 
+            pb.meno = #{value}
+    </select>
+    
+      <insert id="insert" parameterType="ProductBakt" useGeneratedKeys="true" keyColumn="pbno" keyProperty="no">
+            insert into p_prdt_bakt(ptno, meno, cnt) 
+            VALUES(#{ptno},#{meno},#{cnt});
+            
+  </insert>
+  
+  <delete id="delete" parameterType="int">
+        delete from p_prdt_bakt
+        where pbno=#{value}
+  </delete>
+  
+  <update id="update" parameterType="ProductBakt">
+    update p_prdt_bakt
+    
+        <set>
+            <if test="ptno!=null">ptno=#{ptno},</if>
+            <if test="meno!=null">meno=#{meno},</if>
+            <if test="ctno!=ctno">cnt=#{cnt}</if>
+        </set>
+        
+        where
+            meno=#{no}
+  </update>
+
+</mapper>

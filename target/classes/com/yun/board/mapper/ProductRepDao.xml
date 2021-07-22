@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.ProductRepDao">
+
+	<resultMap type="productRep" id="productRepMap">
+		<id column="rno" property="no" />
+		<result column="conts" property="conts" />
+		<result column="rgdt" property="rgdt" />
+		<result column="pp" property="phot" />
+        <result column="ptno" property="ptno" />
+        <result column="meno" property="meno" />
+		<result column="nick" property="mentee.nick" />
+		<result column="mp" property="mentee.phot" />
+        <result column="titl" property="titl" />
+        <result column="prdtphot" property="prdtphot" />
+	</resultMap>
+    
+    <resultMap type="productRep" id="star">
+        <result column="star"       property="star"/>
+    </resultMap>
+    
+    <select id="findAllStar" resultMap="star" parameterType="map">
+        select 
+            star
+        from 
+            p_prdt_rep
+        where
+            ptno = #{no}
+        limit #{rowNo},#{size};
+    </select>
+    
+    <select id="findAllByRgdt" resultMap="productRepMap">
+        select 
+            psp.rno,
+            pe.nick,
+            pe.phot as mp,
+            psp.conts,
+            psp.phot,
+            psp.star,
+            psp.rgdt,
+            pe.meno,
+            prdt.ptno,
+            prdt.titl,
+            prdt.phot as prdtphot
+        from
+            p_mete as pe inner join p_prdt_rep as psp
+                on pe.meno = psp.meno
+            inner join p_prdt as prdt
+                on psp.ptno = prdt.ptno
+        order by 
+            psp.rgdt desc
+        limit 0,4
+    </select>
+    
+	<select id="findAllByPtno" resultMap="productRepMap"
+		parameterType="map">
+		SELECT
+		pr.rno,
+		pr.conts,
+		pr.rgdt,
+		pr.phot as pp,
+        mete.meno,
+		mete.nick,
+		mete.phot as mp
+		FROM p_prdt_rep pr
+		join p_mete mete
+		on
+		pr.meno = mete.meno and
+		pr.ptno = #{ptno}
+        limit #{rowNo},#{size}
+	</select>
+
+
+	<select id="findAll" resultMap="productRepMap">
+		select
+		rno,
+		meno,
+		ptno,
+		conts,
+		star,
+		rgdt,
+		phot
+		from
+		p_prdt_rep
+		order by
+		rno asc
+	</select>
+
+	<select id="findByNo" resultMap="productRepMap"
+		parameterType="int">
+		select
+		rno,
+		meno,
+		ptno,
+		conts,
+		star,
+		rgdt,
+		phot
+		from
+		p_prdt_rep
+		where
+		rno=#{value}
+	</select>
+
+	<select id="findAllByMeno" resultMap="productRepMap"
+		parameterType="Map">
+		select
+		rno,
+		meno,
+		ptno,
+		conts,
+		star,
+		rgdt,
+		phot
+		from
+		p_prdt_rep
+		where
+		meno=#{mentno}
+	</select>
+
+
+	<insert id="insert" parameterType="productRep"
+		useGeneratedKeys="true" keyColumn="rno" keyProperty="no">
+        
+            insert into p_prdt_rep(meno,ptno,conts,star,rgdt)
+            values(#{meno},#{ptno},#{conts},#{star},now())
+       
+  
+		
+	</insert>
+
+	<update id="update" parameterType="productRep">
+		update p_prdt_rep
+
+		<set>
+			<if test="conts!=null"> conts=#{conts},</if>
+			<if test="star>0"> star= #{star},</if><!-- star - 1단위/1점 부터 -->
+			<if test="phot!=null">phot=#{phot}</if>
+		</set>
+		where
+		rno=#{no}
+	</update>
+ 
+    <delete id="delete" parameterType="int">
+        delete from p_prdt_rep 
+        where rno=#{rno}
+    </delete>
+    
+
+</mapper>

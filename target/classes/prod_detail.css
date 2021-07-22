@@ -1,0 +1,231 @@
+/*!
+ * Start Bootstrap - Clean Blog2 v5.0.1 (https://startbootstrap.com/template-overviews/clean-blog)
+ * Copyright 2013-2018 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-clean-blog/blob/master/LICENSE)
+ */
+/*
+ * 상품 질문답변
+*/
+
+@media screen and (min-width: 768px) { 
+        .modal:before {
+                display: inline-block;
+                vertical-align: middle;
+                content: " ";
+                height: 100%;
+        }
+}
+ 
+.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+}
+
+div.adddet{
+    font-size : 15px;
+    font-weight : bold;
+}
+div.addr{
+    text-align : center;
+    vertical-align: middle; 
+    margin-left: 80px;
+    margin-top : 60px;
+    float : right;
+}
+td.hiddenRow {
+    padding: 0 4px !important;
+    background-color: #eeeeee;
+    font-size: 15px;
+}
+
+/* 메인헤더 관련 */
+img.clsMetoPhot{
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  border: 2px solid #ec5453;
+ 
+}
+a#prdtSidebtnGo{
+  font-size: 16px;
+  background-color: #ec5453;
+  border: 1px solid #ec5453;
+}
+a#prdtSidebtnGo:hover{
+  background-color: #d84b6b;
+  border: 1px solid #ec5453;
+}
+
+a#prdtSidebtnLike{
+  font-size: 16px;
+}
+div#STATICMENU{
+    /* border: 1px solid silver; */
+    font-size: 16px;
+    margin: 0pt; padding: 0pt;  
+    position: absolute; right: 0px; top: 0px;
+}
+
+
+/*ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd*/
+
+.glyphicon-lg{font-size:3em}
+.blockquote-box{border-right:5px solid #E6E6E6;margin-bottom:25px}
+.blockquote-box .square{width:100px;min-height:50px;margin-right:22px;text-align:center!important;background-color:#E6E6E6;padding:20px 0}
+.blockquote-box.blockquote-primary{border-color:#357EBD}
+.blockquote-box.blockquote-primary .square{background-color:#428BCA;color:#FFF}
+.blockquote-box.blockquote-success{border-color:#4CAE4C}
+.blockquote-box.blockquote-success .square{background-color:#5CB85C;color:#FFF}
+.blockquote-box.blockquote-info{border-color:#46B8DA}
+.blockquote-box.blockquote-info .square{background-color:#5BC0DE;color:#FFF}
+.blockquote-box.blockquote-warning{border-color:#EEA236}
+.blockquote-box.blockquote-warning .square{background-color:#F0AD4E;color:#FFF}
+.blockquote-box.blockquote-danger{border-color:#D43F3A}
+.blockquote-box.blockquote-danger .square{background-color:#D9534F;color:#FFF}
+
+
+
+/*ㅇㅇㅇ222222ㅇㅇㅇㅇㅇㅇ*/
+
+
+.glyphicon { margin-right:5px; }
+.rating .glyphicon {font-size: 22px;}
+.rating-num { margin-top:0px;font-size: 54px; }
+.progress { margin-bottom: 5px; }
+.progress-bar { text-align: left;  }
+.rating-desc .col-md-3 {padding-right: 0px; }
+.sr-only { margin-left: 5px;overflow: visible;clip: auto; }
+
+/*ㅇㅇㅇㅇ2222ㅇㅇㅇㅇ*/
+
+/* 상품 상세정보 사진 크기 */
+#prod_img{
+    height: 100%;
+    width: 100%;
+    margin-top : 50px;
+}
+
+/*
+18.11.10 상품 상세보기 부트스트랩
+.gallery-wrap .img-big-wrap img
+.gallery-wrap .img-small-wrap .item-gallery
+.gallery-wrap .img-small-wrap 
+.gallery-wrap .img-small-wrap img 
+*/
+/* .gallery-wrap .img-big-wrap img {
+    height: 450px;
+    width: auto;
+    display: inline-block;
+    cursor: zoom-in;
+}
+ */
+
+.gallery-wrap .img-small-wrap .item-gallery {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #ddd;
+    margin: 7px 2px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.gallery-wrap .img-small-wrap {
+    text-align: center;
+}
+.gallery-wrap .img-small-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    cursor: zoom-in;
+}
+
+
+.under-navbar-nav{
+    background-color:dimgrey;
+/*    float: left;*/
+    height: 45px;
+/*    width: 100%;*/
+    margin-bottom: 0px;
+   /* text-align: center;*/
+    
+    
+}
+
+
+.under-nav-item a{
+    color: white;
+    
+}
+
+.under-navbar-nav li {
+    display: inline-block;
+}
+
+/* div.detail_info{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 0px;
+    border-radius: .25rem;
+    margin-top:25px;
+    margin-bottom: 100px;
+} */
+div.detail_review{
+ 
+}
+
+#testt{
+    width:96.4%;
+    position : absolute;
+    margin-left:-14px;
+    z-index: 11;
+    padding: 0;
+    /*position=absolute; 
+    top: 985px;*/
+}
+
+img#circle{
+    border-radius: 50%;
+    width:70px;
+    height: 70px;
+}
+
+table{
+    text-align: center;
+    
+}
+
+#qna_th{
+    text-align: center;
+}
+
+#product-pn{
+    text-align: center;
+}
+
+
+footer .list-inline {
+  margin: 0;
+  padding: 0;
+}
+
+footer .copyright {
+  font-size: 14px;
+  margin-bottom: 0;
+  text-align: center;
+}
+
+/*
+    .btn
+    .btn-primary
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active
+    .btn-lg
+*/

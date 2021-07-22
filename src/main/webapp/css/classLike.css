@@ -1,0 +1,9 @@
+.media-body{
+    position: relative;
+    left:3%;    
+}
+
+.btncancel {
+    position: relative;
+    float: none;
+}

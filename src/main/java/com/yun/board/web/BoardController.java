@@ -31,7 +31,6 @@ public class BoardController {
             @RequestParam(defaultValue="5") int pageSize, 
             Model model) {
         List<BoardVO> list = boardService.list((pageNo-1)*pageSize,pageSize);
-        System.out.println(list);
         model.addAttribute("list", list);
         
         int count = boardService.count();

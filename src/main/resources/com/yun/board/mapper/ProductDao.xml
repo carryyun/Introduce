@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ProductDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.ProductDao">
+
+    <resultMap type="product" id="productMap">
+        <id column="ptno"        property="no"/>
+        <result column="titl"   property="titl"/>
+        <result column="conts"   property="conts"/>
+        <result column="pric"   property="pric"/>
+        <result column="rgdt"   property="rgdt"/>
+        <result column="stock"   property="stock"/>
+        <result column="pp"   property="phot"/>
+        <result column="meno"   property="meno"/>
+        <result column="ctno"   property="ctno"/>
+        <result column="stno"   property="stno"/>
+        <result column="star"   property="star"/>
+        <result column="meno"   property="mentee.no"/>
+        <result column="name"   property="mentee.name"/>
+        <result column="nick"   property="mentee.nick"/>
+        <result column="mp"   property="mentee.phot"/>
+        <result column="ctno"   property="cert.no"/>
+        <result column="type"   property="cert.type"/>
+        <result column="stno"   property="smalltag.no"/>
+        <result column="stname"   property="smalltag.name"/>
+        <result column="mtno"   property="smalltag.mtno"/>
+        
+        <result column="mtname"   property="middleTagName"/>
+        
+        <result column="btno"   property="bigTag.no"/>
+        <result column="btname"   property="bigTag.name"/>
+        
+        <result column="deli" property="deli"/>
+        <result column="star" property="star"/>
+        <result column="clstitl" property="classes.titl"/>
+        <result column="cfile" property="classes.cfile"/>
+        <result column="clsmetephot" property="classes.mentee.phot"/>
+        <result column="clsmetenick" property="classes.mentee.nick"/>
+        
+        <result column="clsstar"    property="classes.star"/>
+        <result column="clsaddr"    property="classes.basAddr"/>
+        <result column="clscno"     property="classes.no"/>
+    </resultMap>
+    
+    <resultMap type="product" id="sellerMap">
+        <id column="ptno"        property="no"/>
+        <result column="titl"    property="titl"/>
+        <result column="conts"   property="conts"/>
+        <result column="pric"    property="pric"/>
+        <result column="rgdt"    property="rgdt"/>
+        <result column="stock"   property="stock"/>
+        <result column="phot"     property="phot"/>
+        <result column="meno"    property="meno"/>
+        <result column="ctno"    property="ctno"/>
+        <result column="stno"    property="stno"/>
+        <result column="star"    property="star"/>
+        
+       
+        <result column="poono"     property="productOrder.no"/>
+        <result column="popric"     property="productOrder.tot_pric"/>
+        <result column="payopt"      property="productOrder.payopt"/>
+        <result column="paydt"     property="productOrder.paydt"/>
+        <result column="parc_name"  property="productOrder.parc_name"/>
+        <result column="parc_no"    property="productOrder.parc_no"/>
+        <result column="pomeno"    property="productOrder.meno"/>
+        <result column="pocnt"    property="productOrder.cnt"/>
+        
+        <result column="me2name"    property="mentee2.name"/>
+        <result column="me2nick"    property="mentee2.nick"/>
+        <result column="me2phone"   property="mentee2.phone"/>
+        <result column="me2pstno"   property="mentee2.pstno"/>
+        <result column="me2bas"     property="mentee2.bas_addr"/>
+        <result column="me2det"     property="mentee2.det_addr"/>
+    </resultMap>
+    
+    <select id="hotItemlist" resultMap="productMap">
+    	SELECT PD.ptno, PD.titl
+ 		  FROM (SELECT ptno, COUNT(*) as cnt
+  		  FROM p_prdt_order P
+      GROUP BY ptno) CNT, p_prdt PD
+         WHERE PD.ptno=CNT.ptno
+      ORDER BY cnt DESC
+    </select>
+
+
+    <resultMap type="product" id="productStar">
+        <id     column="ptno"        property="no"/>
+        <result column="star"   property="star"/>
+    </resultMap>
+    
+    <select id="findAllStar" resultMap="productStar">
+        select
+            ptno,
+            star
+        from
+            p_prdt
+        limit 0,500
+    </select>
+
+
+    
+<sql id="selectAll">
+select
+    p.ptno,
+    p.titl,
+    p.conts,
+    p.pric,
+    p.deli,
+    p.star,
+    p.rgdt,
+    p.stock,
+    p.phot as pp,
+    p.meno,
+    p.ctno,
+    p.stno,
+    p.star,
+    mete.meno,
+    mete.nick,
+    mete.name,
+    mete.phot mp,
+    cert.ctno,
+    cert.type,
+    stag.stno,
+    stag.stname,
+    stag.mtno,
+    mtag.mtname,
+    btag.btno,
+    btag.btname
+from 
+    p_prdt p
+    join p_mete mete
+    join p_cert cert
+    join p_stag stag
+    JOIN p_mtag mtag
+    JOIN p_btag btag
+ON
+    p.meno=mete.meno AND
+    p.ctno=cert.ctno AND
+    p.stno=stag.stno AND
+    stag.mtno = mtag.mtno AND
+    mtag.btno = btag.btno
+</sql>
+
+    <select id="findAllForScroll" resultMap="productMap" parameterType="map">
+    <include refid="selectAll" />
+    where
+        p.stat='Y'
+    order by 
+        ptno DESC
+    limit #{rowNo},#{size}
+    </select>
+
+    <select id="findAllByMtno" resultMap="productMap" parameterType="map">
+    <include refid="selectAll" />
+    where
+        stag.mtno=#{mtno}
+    order by 
+        ptno DESC
+    </select>
+    
+  
+    
+    <select id="findAllByStno" resultMap="productMap" parameterType="map">
+    <include refid="selectAll" />
+    where
+        stag.stno=#{stno}
+    order by 
+        ptno DESC
+    </select>
+    
+    <select id="findAll_list" resultMap="productMap">
+    <include refid="selectAll" />
+    where
+        p.stat='Y'
+    order by 
+        ptno DESC
+    </select>
+    
+    <select id="findAllByList" resultMap="productMap">
+    select *
+        from (
+            select
+                @rownum:=@rownum+1 as rnum,
+               prdt.ptno,
+        stag.stname,
+        prdt.titl, 
+        mete.nick,
+        mete.name,
+        prdt.pric,
+        prdt.stat,
+        prdt.rgdt
+            from
+            p_prdt as prdt 
+        inner join p_stag as stag
+        inner join p_mete as mete
+            
+            on  prdt.stno = stag.stno and
+        prdt.meno = mete.meno
+                ,(select @rownum:=0)r
+           order by
+        prdt.ptno asc
+            ) as a
+        where rnum limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="countpdall" resultType="int" parameterType="int">
+    select
+           COUNT(*)
+        
+      from
+           p_prdt as prdt 
+            inner join p_stag as stag
+            inner join p_mete as mete
+        
+       on  prdt.stno = stag.stno and
+           prdt.meno = mete.meno
+    order by
+           prdt.ptno asc
+    
+    </select>
+    
+    <select id="pdalist" resultMap="productMap">
+    select *
+        from (
+            select
+                @rownum:=@rownum+1 as rnum,
+               prdt.ptno,
+        stag.stname,
+        prdt.titl, 
+        mete.nick,
+        mete.name,
+        prdt.pric,
+        prdt.stat,
+        prdt.rgdt
+            from
+            p_prdt as prdt 
+        inner join p_stag as stag
+        inner join p_mete as mete
+            
+            on  prdt.stno = stag.stno and
+        prdt.meno = mete.meno
+                ,(select @rownum:=0)r
+           order by
+        prdt.ptno asc
+            ) as a
+        where rnum limit #{pageNo},#{pageSize}
+    </select>
+
+    <select id="findByNo" 
+            resultMap="productMap" parameterType="int">
+select
+    p.ptno,
+    p.titl,
+    p.conts,
+    p.pric,
+    p.deli,
+    p.star,
+    p.rgdt,
+    p.stock,
+    p.phot pp,
+    p.meno,
+    p.ctno,
+    p.stno,
+    mete.meno,
+    mete.nick,
+    mete.name,
+    mete.phot mp,
+    cert.ctno,
+    cert.type,
+    stag.stno,
+    stag.stname,
+    stag.mtno,
+    mtag.mtno,
+    mtag.mtname,
+    btag.btno,
+    btag.btname,
+    pcls.titl clstitl,
+    pcls.cfile,
+    clsmete.phot clsmetephot,
+    clsmete.nick clsmetenick,
+    pcls.star clsstar,
+    pcls.bas_addr clsaddr,
+    pcls.cno clscno
+from 
+    p_prdt p
+    join p_mete mete
+    join p_cert cert
+    join p_stag stag
+    JOIN p_mtag mtag
+    join p_cls pcls
+    join p_mete clsmete
+    join p_btag btag
+ON
+    p.meno=mete.meno AND
+    p.ctno=cert.ctno AND
+    p.stno=stag.stno AND
+    stag.mtno = mtag.mtno AND
+    mtag.btno = btag.btno AND
+    pcls.cno= cert.cno AND
+    pcls.mono = clsmete.meno
+where
+    ptno=#{value} and
+    p.stat='Y'
+    </select>
+    
+    <select id="findAllByMeno" 
+            resultMap="productMap" parameterType="Map">
+        select
+            ptno,
+            titl,
+            conts,
+            pric,
+            deli,
+            star,
+            rgdt,
+            stock,
+            phot,
+            meno,
+            ctno,
+            stno
+        from
+            p_prdt
+        where 
+            meno=#{mentno}
+    </select>
+    
+    
+<!--     <select id="findAllByStno" 
+            resultMap="productMap" parameterType="Map">
+        select
+            ptno,
+            titl,
+            conts,
+            pric,
+            deli,
+            star,
+            rgdt,
+            stock,
+            phot,
+            meno,
+            ctno,
+            stno
+        from
+            p_prdt
+        where 
+            stno=#{smallno}
+    </select> -->
+    
+
+    <select id="findBySeller" 
+            resultMap="sellerMap" parameterType="Map">
+            
+        SELECT  
+                p.*
+        FROM
+            p_prdt p
+            JOIN p_mete me ON p.meno = me.meno
+        WHERE
+            me.meno = #{meno} and p.stat='Y'
+        limit #{rowNo},#{size}
+    </select>
+
+     <select id="findBySeller2" 
+            resultMap="sellerMap" parameterType="Map">
+            
+        SELECT  
+                p.*,
+                po.ono as poono,
+                po.cnt as pocnt,
+                po.meno as pomeno,
+                po.parc_no,
+                po.tot_pric as popric,
+                po.payopt,
+                po.paydt,
+                po.parc_name,
+                
+                me2.name as me2name,
+                me2.nick as me2nick,
+                me2.phone as me2phone,
+                me2.pstno as me2pstno,
+                me2.bas_addr as me2bas,
+                me2.det_addr as me2det
+                
+                
+        FROM
+            p_prdt p
+            JOIN p_mete me ON p.meno = me.meno
+            JOIN p_prdt_order po ON p.ptno = po.ptno
+            JOIN p_mete me2 ON po.meno = me2.meno
+    
+        WHERE
+            p.ptno = #{ptno}
+
+        ORDER BY
+            po.ono asc
+    
+            
+            
+    </select>
+            
+    <select id="serchByTitl" 
+            resultMap="productMap" parameterType="Map">
+        <include refid="selectAll" />
+        WHERE
+            p.titl Like #{titl}
+            
+    </select>
+    
+            
+            
+            
+    <insert id="insert" parameterType="product"
+            useGeneratedKeys="true" keyColumn="ptno" keyProperty="no">
+            
+        insert into p_prdt(titl,conts,pric,rgdt,stock,phot,meno,ctno,stno,deli,star,stat)
+        values(#{titl},#{conts},#{pric},now(),#{stock},#{phot},#{meno},#{ctno},#{stno},#{deli},0,'Y')
+    </insert> 
+    
+    <update id="update" parameterType="product">
+        update p_prdt
+    <set> 
+        <if test="titl!=null">titl= #{titl},</if>
+        <if test="conts!=null">conts=#{conts},</if>
+        <if test="pric>0">pric= #{pric},</if>
+        <if test="deli>0">deli= #{deli},</if>
+        <if test="star>0">star= #{star},</if>
+        <if test="stock>0">stock= #{stock},</if>
+        <if test="phot!=null">phot= #{phot},</if>
+        <if test="ctno>0">ctno= #{ctno},</if>
+        <if test="stno>0">stno= #{stno},</if>
+        <if test="star>-1">star= #{star},</if>
+    </set>
+        where
+            ptno=#{no}
+    </update> 
+    
+    <update id="updatestat" parameterType="product">
+        UPDATE 
+            p_prdt
+        <set>
+            <if test="stat != null">stat = #{stat}</if>
+        </set>
+         where ptno = #{no}
+    </update>
+    
+</mapper>

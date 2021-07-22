@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- BigTagDao 클래스가 사용할 SQL이 들어 있는 파일 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yun.board.dao.ProductQnADao">
+
+    <resultMap type="productQnA" id="productQnAMap">
+        <id column="qno"        property="no"/>
+        <result column="meno"   property="meno"/>
+        <result column="ptno"   property="ptno"/>
+        <result column="titl"   property="titl"/>
+        <result column="conts"  property="conts"/>
+        <result column="rgdt"   property="rgdt"/>
+        <result column="anser"  property="anser"/>
+        <result column="rgdt2"  property="rgdt2"/>
+        <result column="nick"   property="mentee.nick"/>
+        <result column="type"   property="type"/>
+        <result column="ptitl"    property="product.titl"/>
+        <result column="me2nick"  property="mentee2.nick"/>
+        <result column="me2name"  property="mentee2.name"/>
+        
+    </resultMap>
+    
+    <select id="findAll" resultMap="productQnAMap">
+        select
+            qno,
+            meno,
+            ptno,
+            titl,
+            conts,
+            rgdt,
+            anser,
+            rgdt2
+        from 
+            p_prdt_qna 
+        order by 
+            qno asc
+    </select>
+
+    <select id="findByNo" 
+            resultMap="productQnAMap" parameterType="int">
+        select
+            qno,
+            meno,
+            ptno,
+            titl,
+            conts,
+            rgdt,
+            anser,
+            rgdt2
+        from
+            p_prdt_qna
+        where 
+            qno=#{value}
+    </select>
+    
+    <select id="findAllByMeno" 
+            resultMap="productQnAMap" parameterType="Map">
+        SELECT
+            pq.type,
+            p.titl as ptitl,
+            pq.titl,
+            pq.rgdt,
+            pq.conts,
+            pq.anser,
+            pq.ptno
+        FROM 
+            p_prdt_qna pq JOIN p_prdt p ON pq.ptno = p.ptno
+            JOIN p_mete m ON pq.meno = m.meno
+        WHERE
+            m.meno = #{meno}
+        order by
+            qno desc
+        limit #{rowNo},#{size}
+    </select>
+    
+    <select id="findAllByMeno2" 
+            resultMap="productQnAMap" parameterType="Map">
+        
+        SELECT
+            pq.type,
+            p.titl as ptitl,
+            pq.titl,
+            me.nick,
+            me2.nick as me2nick,
+            me2.name as me2name,
+            pq.rgdt,
+            pq.rgdt2,
+            pq.conts,
+            pq.anser,
+            pq.ptno,
+            pq.qno
+        FROM 
+            p_prdt_qna pq 
+            JOIN p_prdt p ON pq.ptno= p.ptno
+            JOIN p_mete me ON p.meno = me.meno
+            join p_mete me2 ON pq.meno = me2.meno
+        WHERE
+            me.meno = #{meno}
+        order by
+            qno desc
+        limit #{rowNo},#{size}
+    </select>
+    
+    
+     <select id="findAllByQno" 
+            resultMap="productQnAMap" parameterType="int">
+        select 
+            qno, 
+            type, 
+            conts, 
+            nick,
+            qna.rgdt
+        from 
+            p_prdt_qna qna inner join p_mete mete
+            on qna.meno = mete.meno
+        where qno=#{no}
+    </select>
+    
+    
+    
+    <select id="findAllByPtno" 
+            resultMap="productQnAMap" parameterType="Map">
+        select 
+            qno, 
+            titl,
+            type, 
+            conts, 
+            nick,
+            qna.rgdt
+        from 
+            p_prdt_qna qna inner join p_mete mete
+            on qna.meno = mete.meno
+        where ptno=#{productno}
+        limit #{rowNo},#{size}
+    </select>
+    
+  
+    <insert id="insert" parameterType="productQnA"
+            useGeneratedKeys="true" keyColumn="qno" keyProperty="no">
+        insert into p_prdt_qna(meno,ptno,titl,conts,rgdt,type)
+        values(#{meno},#{ptno},#{titl},#{conts},now(),#{type})
+    </insert> 
+    
+    
+    <update id="update" parameterType="productQnA">
+    update p_prdt_qna
+    
+    <set> 
+        <if test="titl!=null"> titl= #{titl},</if>
+        <if test="conts!=null"> conts=#{conts}</if>
+    </set>
+        where
+            qno=#{no}
+    </update>
+    
+    <update id="updateAnser" parameterType="productQnA">
+    update p_prdt_qna
+    
+    <set> 
+        <if test="anser!=null"> anser= #{anser},</if>
+        rgdt2=now()
+    </set>
+        where
+            qno=#{no}
+    </update>
+</mapper>
